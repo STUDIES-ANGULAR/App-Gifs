@@ -1,2 +1,10 @@
 <h5>Buscar</h5>
-<input type="text" class="form-control" placeholder="Buscar gifs" />
+
+<!-- el keyup solito emite un evento de tipo event:KeyboardEven ese evento tiene un .enter  -->
+<input 
+type="text"
+ class="form-control" 
+ placeholder="Buscar gifs..."
+ (keyup.enter)="buscar()"
+ #txtBuscar
+ />
