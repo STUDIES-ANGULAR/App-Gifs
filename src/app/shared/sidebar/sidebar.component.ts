@@ -12,6 +12,11 @@ export class SidebarComponent{
   get historial (): string []{
     return this.gifsService.historial;
   }
+
+  buscar(queryOFSidebar:string){
+    this.gifsService.buscarGifs(queryOFSidebar);
+
+  }
   
   constructor( private gifsService: GifsService){}
   //let buscados: string [] = [];

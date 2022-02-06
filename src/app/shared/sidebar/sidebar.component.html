@@ -4,9 +4,14 @@
 
   <hr class="text-white" />
   <div class="list-group list-reset">
-    <a *ngFor ="let item of historial" class="list-group-item list-group-item-action"> {{item | titlecase}} </a>
+    <a
+      *ngFor="let item of historial"
+      class="list-group-item list-group-item-action"
+      (click)="buscar(item)"
+    >
+      {{ item | titlecase }}
+    </a>
     <!-- con el | titlecase mostramos los datos con primera en Mayuscula  -->
-   
   </div>
 </div>
 <!-- End Sidebar -->
