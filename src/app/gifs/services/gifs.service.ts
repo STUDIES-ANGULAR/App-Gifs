@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { SearchGifsResponse, Gif } from '../interfaces/gifs.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ export class GifsService {
   private _historial: string[] = [];
 
   private apiKey: string = 'MKMQbJfpEAupRowipGUqnVFicN1Q1yDd';
-  //TODO cambiar eny
-  public resultados : any [] =[]; 
+
+  public resultados : Gif [] =[]; 
 
   get historial() {
     return [...this._historial]; // [...] rompemos la relacion con el arreglo original
@@ -37,8 +38,8 @@ export class GifsService {
     // console.log(this._historial);
 
     //Al trabajar con Http hacemos uso de los observable y no de promesas como lo es con fetch
-    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=MKMQbJfpEAupRowipGUqnVFicN1Q1yDd&q=${queryBusqueda} ball&limit=10`)
-      .subscribe((resp:any) => {
+    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=MKMQbJfpEAupRowipGUqnVFicN1Q1yDd&q=${queryBusqueda} ball&limit=10`)
+      .subscribe((resp) => {
         console.log(resp.data);
         this.resultados = resp.data;
       });
