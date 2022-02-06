@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchGifsResponse, Gif } from '../interfaces/gifs.interfaces';
 
@@ -10,6 +10,7 @@ export class GifsService {
   private _historial: string[] = [];
 
   private apiKey: string = 'MKMQbJfpEAupRowipGUqnVFicN1Q1yDd';
+  private servicioUrl: string = 'https://api.giphy.com/v1/gifs';
 
   public resultados : Gif [] =[]; 
 
@@ -48,9 +49,15 @@ export class GifsService {
     //   resp.json().then(data => {console.log(data)})
     // })
     // console.log(this._historial);
+    const params = new HttpParams()
+          .set('api_key', this.apiKey)
+          .set('limit', '10')
+          .set('q', queryBusqueda);
+    
+    console.log(params);
 
-    //Al trabajar con Http hacemos uso de los observable y no de promesas como lo es con fetch
-    this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=MKMQbJfpEAupRowipGUqnVFicN1Q1yDd&q=${queryBusqueda} ball&limit=10`)
+    //Al trabajar con Http hacemos uso de los observable y no de promesas como lo es con fetch con .then o Axios
+    this.http.get<SearchGifsResponse>(`${this.servicioUrl}/search`, {params: params})
       .subscribe((resp) => {
         console.log(resp.data);
         this.resultados = resp.data;
